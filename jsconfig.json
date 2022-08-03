@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@middlewares": ["src/middlewares"],
+        "@routes": ["src/routes"],
+        "@controllers": ["src/controllers"],
+        "@database": ["src/database"]
+      }
+    },
+    "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte"],
+    "exclude": ["node_modules", "**/node_modules", "dist"]
+  }
+  
