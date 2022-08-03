@@ -5,7 +5,8 @@
         "@middlewares": ["src/middlewares"],
         "@routes": ["src/routes"],
         "@controllers": ["src/controllers"],
-        "@database": ["src/database"]
+        "@database": ["src/database"],
+        "@schemas": ["src/schemas"]
       }
     },
     "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte"],
