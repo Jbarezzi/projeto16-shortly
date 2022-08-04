@@ -1,8 +1,8 @@
 import { Router } from "express";
-import validateWithJoi from "@middlewares/validateWithJoi";
-import checkIfUserExists from "@middlewares/user/checkIfUserExists";
-import signup from "@controllers/userController";
-import newUser from "@schemas/userSchemas";
+import validateWithJoi from "./../middlewares/validateWithJoi.js";
+import checkIfUserExists from "./../middlewares/user/checkIfUserExists.js";
+import signup from "./../controllers/userController.js";
+import newUser from "./../schemas/userSchemas.js";
 
 const userRouter = Router();
 

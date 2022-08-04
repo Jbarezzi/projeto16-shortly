@@ -1,6 +1,6 @@
-import connection from "@database/postgre";
+import connection from "./../database/postgre.js";
 
-function signup(req, res) {
+async function signup(req, res) {
     const { name, email, password } = req.body;
     const query = "INSERT INTO users (name, email, password) VALUES ($1, $2, $3);";
     await connection.query(query, [name, email, password]);
