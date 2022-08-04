@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { registerUser } from "../repositories/authRepository.js";
 
 async function signup(req, res) {
@@ -13,4 +14,15 @@ async function signup(req, res) {
     }   
 }
 
-export default signup;
+async function signin(_req, res) {
+    const user = res.locals.user;
+    const data = {
+        name: user.name,
+        email: user.email,
+        id: user.id
+    }
+    const token = jwt.sign(data, process.env.JWT_SECRET_KEY);
+    res.status(200).send(token);
+}
+
+export { signup, signin } ;
