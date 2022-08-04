@@ -7,9 +7,9 @@ const newUser = Joi.object({
     confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
 });
 
-const loginUser = Joi.object({
+const signinUser = Joi.object({
     email: Joi.string().email().trim().required(),
     password: Joi.string().trim().required(),
 });
 
-export { newUser, loginUser };
+export { newUser, signinUser };
