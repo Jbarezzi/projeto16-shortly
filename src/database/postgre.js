@@ -1,5 +1,7 @@
 import pg from "pg";
+import dotenv from "dotenv";
 
+dotenv.config();
 const { Pool } = pg;
 
 const user = process.env.DATABASE_USER;
@@ -13,7 +15,7 @@ const connection = new Pool({
   password,
   host,
   port,
-  database
+  database,
 });
 
 export default connection;
