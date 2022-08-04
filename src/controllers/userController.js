@@ -1,10 +1,16 @@
-import connection from "./../database/postgre.js";
+import bcrypt from "bcrypt";
+import { registerUser } from "../repositories/userRepository.js";
 
 async function signup(req, res) {
-    const { name, email, password } = req.body;
-    const query = "INSERT INTO users (name, email, password) VALUES ($1, $2, $3);";
-    await connection.query(query, [name, email, password]);
-    res.sendStatus(201);
+    const user = req.body;
+    const saltRounds = 10;
+    const hash = bcrypt.hash(user.password, saltRounds);
+    try {
+        await registerUser(user, hash);
+        res.sendStatus(201);
+    } catch {
+        res.status(500).send({message: "Não foi possível cadastrar o usuário."})
+    }   
 }
 
 export default signup;
