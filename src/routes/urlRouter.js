@@ -1,7 +1,6 @@
 import { Router } from "express";
-import { createShortUrl } from "./../controllers/urlController";
-import validateJwtToken from "./../middlewares/url/validateJwtToken";
-import validateWithJoi from "./../middlewares/validateWithJoi";
+import { createShortUrl } from "./../controllers/urlController.js";
+import { validateJwtToken, validateWithJoi } from "./../middlewares/index.js";
 import newUrl from "./../schemas/urlSchemas.js";
 
 const urlRouter = Router();
