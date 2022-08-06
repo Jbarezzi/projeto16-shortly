@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createShortUrl, getUrl, handleUrlDelete, redirectUser } from "./../controllers/urlController.js";
+import { createShortUrl, getUrl, handleUrlDelete, redirectUser, returnRanking } from "./../controllers/urlController.js";
 import { checkIfShortUrlExists, checkIfUrlExists, checkIfUrlIsFromUser, increaseVisitCount, validateJwtToken, validateWithJoi } from "./../middlewares/index.js";
 import newUrl from "./../schemas/urlSchemas.js";
 
@@ -9,5 +9,6 @@ urlRouter.post("/urls/shorten", validateJwtToken, validateWithJoi(newUrl), creat
 urlRouter.get("/urls/:id", checkIfUrlExists, getUrl);
 urlRouter.get("/urls/open/:shortUrl", checkIfShortUrlExists, increaseVisitCount, redirectUser);
 urlRouter.delete("/urls/:id", validateJwtToken, checkIfUrlExists, checkIfUrlIsFromUser, handleUrlDelete);
+urlRouter.get("/ranking", returnRanking);
 
 export default urlRouter;
