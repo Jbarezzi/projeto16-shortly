@@ -28,4 +28,18 @@ async function deleteUrl(urlId) {
     await connection.query(query, [urlId]);
 }
 
-export { registerUrl, getUrlById, getShortUrl, addVisitsToUrl, deleteUrl };
+async function getRanking() {
+    const query = `SELECT users.id,
+                users.name,
+                COUNT(urls."userId") AS "linksCount",
+                COALESCE(SUM(urls."visitCount"), 0) AS "visitCount"
+            FROM users
+            LEFT JOIN urls ON users.id = urls."userId"
+            GROUP BY users.id
+            ORDER BY "visitCount" DESC
+            LIMIT 10;`;
+    const ranking = await connection.query(query);
+    return ranking;
+}
+
+export { registerUrl, getUrlById, getShortUrl, addVisitsToUrl, deleteUrl, getRanking };
