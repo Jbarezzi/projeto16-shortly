@@ -1,6 +1,6 @@
 import getUrlById from "./../../repositories/urlRepository.js;"
 
-async function checkIfUrlExistsById(req, res, next) {
+async function checkIfUrlExists(req, res, next) {
     const id = req.params.id;
     const { rowCount: url } = await getUrlById(id);
     const hasUrl = url === 1;
@@ -10,4 +10,4 @@ async function checkIfUrlExistsById(req, res, next) {
     res.sendStatus(404);
 }
 
-export default checkIfUrlExistsById;
+export default checkIfUrlExists;

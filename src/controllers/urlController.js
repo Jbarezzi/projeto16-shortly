@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { getUrlById, registerUrl } from "./../repositories/urlRepository.js";
+import { getShortUrl, getUrlById, registerUrl } from "./../repositories/urlRepository.js";
 
 async function createShortUrl(req, res) {
     const { id } = res.locals.user;
@@ -31,4 +31,17 @@ async function getUrl(req, res) {
     }
 }
 
-export { createShortUrl, getUrl };
+async function redirectUser(req, res) {
+    const shortUrl = req.params.shortUrl;
+    try {
+        const { rows: urls } = await getShortUrl(shortUrl);
+        const url = urls[0].url;
+        res.redirect(url);
+    } catch {
+        res.status(500).send({message: "Não foi possível redirecionar para essa url."});
+    }
+    
+
+}
+
+export { createShortUrl, getUrl, redirectUser };
