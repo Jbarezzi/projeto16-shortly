@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { registerUrl } from "./../repositories/urlRepository.js";
+import { getUrlById, registerUrl } from "./../repositories/urlRepository.js";
 
 async function createShortUrl(req, res) {
     const { id } = res.locals.user;
@@ -16,4 +16,19 @@ async function createShortUrl(req, res) {
     }
 }
 
-export { createShortUrl };
+async function getUrl(req, res) {
+    const id = req.params;
+    try {
+        const { rows: urlDb } = await getUrlById(id);
+        const urlToReturn = {
+            id: urlDb[0].id,
+            shortUrl: urlDb[0].shortUrl,
+            url: urlDb[0].url,
+        };
+        res.status(200).send(urlToReturn);
+    } catch {
+        res.status(500).send({message: "Não foi possível encontrar a URL."});
+    }
+}
+
+export { createShortUrl, getUrl };
