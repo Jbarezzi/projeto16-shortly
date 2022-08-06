@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { registerUser } from "../repositories/authRepository.js";
+import { getUserData, registerUser } from "../repositories/authRepository.js";
 
 async function signup(req, res) {
     const user = req.body;
@@ -25,4 +25,10 @@ async function signin(_req, res) {
     res.status(200).send(token);
 }
 
-export { signup, signin } ;
+async function returnUserData(_req, res) {
+    const { id } = res.locals.user;
+    const userData = await getUserData(id);
+    res.status(200).send(userData);
+}
+
+export { signup, signin, returnUserData } ;
