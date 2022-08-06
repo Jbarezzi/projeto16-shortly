@@ -5,5 +5,6 @@ import checkIfUserExists from "./auth/checkIfUserExists.js";
 import checkIfUrlExists from "./url/checkIfUrlExists.js";
 import checkIfShortUrlExists from "./url/checkIfShortUrlExists.js";
 import increaseVisitCount from "./url/increaseVisitCount.js";
+import checkIfUrlIsFromUser from "./url/checkIfUrlIsFromUser.js";
 
-export { validateWithJoi, validateJwtToken, validateSignin, checkIfUserExists, checkIfUrlExists, checkIfShortUrlExists, increaseVisitCount };
+export { validateWithJoi, validateJwtToken, validateSignin, checkIfUserExists, checkIfUrlExists, checkIfShortUrlExists, increaseVisitCount, checkIfUrlIsFromUser };
