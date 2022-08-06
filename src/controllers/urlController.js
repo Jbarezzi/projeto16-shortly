@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { deleteUrl, getShortUrl, getUrlById, registerUrl } from "./../repositories/urlRepository.js";
+import { deleteUrl, getRanking, getShortUrl, getUrlById, registerUrl } from "./../repositories/urlRepository.js";
 
 async function createShortUrl(req, res) {
     const { id } = res.locals.user;
@@ -52,4 +52,9 @@ async function handleUrlDelete(req, res) {
     }
 }
 
-export { createShortUrl, getUrl, redirectUser, handleUrlDelete };
+async function returnRanking(_req, res) {
+    const ranking = await getRanking();
+    res.status(200).send(ranking);
+}
+
+export { createShortUrl, getUrl, redirectUser, handleUrlDelete, returnRanking };
