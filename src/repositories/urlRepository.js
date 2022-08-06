@@ -6,8 +6,8 @@ async function registerUrl(newUrl) {
     await connection.query(query, [url, shortUrl, userId]);
 }
 
-async function getUrlById(id) {
-    const query = `SELECT * FROM urls WHERE id = $1;`;
+async function getUrlById(urlId) {
+    const query = `SELECT * FROM urls WHERE urlId = $1;`;
     const url = await connection.query(query, [id]);
     return url;
 }
@@ -23,4 +23,9 @@ async function addVisitsToUrl(shortUrl) {
     await connection.query(query, [shortUrl]);
 }
 
-export { registerUrl, getUrlById, getShortUrl, addVisitsToUrl };
+async function deleteUrl(urlId) {
+    const query = `DELETE FROM urls WHERE id = $1;`;
+    await connection.query(query, [urlId]);
+}
+
+export { registerUrl, getUrlById, getShortUrl, addVisitsToUrl, deleteUrl };
