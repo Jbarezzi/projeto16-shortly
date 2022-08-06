@@ -1,4 +1,4 @@
-import getShortUrl from "./../../repositories/urlRepository.js;"
+import { getShortUrl } from "./../../repositories/urlRepository.js";
 
 async function checkIfShortUrlExists(req, res, next) {
     const shortUrl = req.params.shortUrl;

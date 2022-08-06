@@ -1,4 +1,4 @@
-import getUrlById from "./../../repositories/urlRepository.js;"
+import { getUrlById } from "./../../repositories/urlRepository.js";
 
 async function checkIfUrlExists(req, res, next) {
     const id = req.params.id;
