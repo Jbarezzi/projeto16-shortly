@@ -18,4 +18,9 @@ async function getShortUrl(shortUrl) {
     return url;
 }
 
-export { registerUrl, getUrlById, getShortUrl };
+async function addVisitsToUrl(shortUrl) {
+    const query = `UPDATE urls SET "visitCount" = "visitCount" + 1 WHERE "shortUrl" = $1;`;
+    await connection.query(query, [shortUrl]);
+}
+
+export { registerUrl, getUrlById, getShortUrl, addVisitsToUrl };
