@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { getShortUrl, getUrlById, registerUrl } from "./../repositories/urlRepository.js";
+import { deleteUrl, getShortUrl, getUrlById, registerUrl } from "./../repositories/urlRepository.js";
 
 async function createShortUrl(req, res) {
     const { id } = res.locals.user;
@@ -40,8 +40,16 @@ async function redirectUser(req, res) {
     } catch {
         res.status(500).send({message: "Não foi possível redirecionar para essa url."});
     }
-    
-
 }
 
-export { createShortUrl, getUrl, redirectUser };
+async function handleUrlDelete(req, res) {
+    const id = req.params;
+    try {
+        await deleteUrl(id);
+        res.sendStatus(204);
+    } catch {
+        res.status(500).send({message: "Não foi possivel deletar a url."});
+    }
+}
+
+export { createShortUrl, getUrl, redirectUser, handleUrlDelete };
