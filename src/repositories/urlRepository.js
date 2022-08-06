@@ -6,4 +6,10 @@ async function registerUrl(newUrl) {
     await connection.query(query, [url, shortUrl, userId]);
 }
 
-export { registerUrl };
+async function getUrlById(id) {
+    const query = "SELECT * FROM urls WHERE id = $1;";
+    const url = connection.query(query, [id]);
+    return url;
+}
+
+export { registerUrl, getUrlById };
