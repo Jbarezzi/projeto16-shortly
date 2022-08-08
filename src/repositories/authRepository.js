@@ -20,17 +20,18 @@ async function getUserById(id) {
 
 async function getUserData(id) {
     const query = `SELECT users.id, 
-        users.name, 
-        COALESCE(SUM(urls."visitCount"), 0) AS "visitCount", 
-        ( JSON_AGG( JSON_BUILD_OBJECT(
-                'id', urls.id,
-                'shortUrl', urls."shortUrl",
-                'url', urls.url,
-                'visitCount', urls."visitCount"))) AS "shortenedUrls"
-    FROM users
-    LEFT JOIN urls ON urls."userId" = users.id
-    WHERE users.id = $1
-    GROUP BY users.id;`;
+            users.name, 
+            COALESCE(SUM(urls."visitCount"), 0) AS "visitCount", 
+            COALESCE( JSON_AGG( JSON_BUILD_OBJECT(
+                    'id', urls.id,
+                    'shortUrl', urls."shortUrl",
+                    'url', urls.url,
+                    'visitCount', urls."visitCount"))
+                    FILTER (WHERE urls.id IS NOT NULL),'[]') AS "shortenedUrls"
+            FROM users
+            LEFT JOIN urls ON urls."userId" = users.id
+            WHERE users.id = $1
+            GROUP BY users.id;`;
     const userData = await connection.query(query, [id]);
     return userData;
 }

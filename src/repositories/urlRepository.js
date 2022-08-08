@@ -7,8 +7,8 @@ async function registerUrl(newUrl) {
 }
 
 async function getUrlById(urlId) {
-    const query = `SELECT * FROM urls WHERE urlId = $1;`;
-    const url = await connection.query(query, [id]);
+    const query = `SELECT * FROM urls WHERE id = $1;`;
+    const url = await connection.query(query, [urlId]);
     return url;
 }
 
