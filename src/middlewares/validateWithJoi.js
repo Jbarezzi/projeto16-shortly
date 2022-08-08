@@ -1,8 +1,8 @@
 const validateWithJoi = (schema) => {
     return async (req, res, next) => {
-        const userToRegister = req.body;
+        const objectToValidate = req.body;
         try{
-            await schema.validateAsync(userToRegister, { abortEarly: false });
+            await schema.validateAsync(objectToValidate, { abortEarly: false });
             next();
         } catch (error) {
             const errors = error.details.map(detail => detail.message);

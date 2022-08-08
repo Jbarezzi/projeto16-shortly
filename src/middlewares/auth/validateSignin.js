@@ -6,8 +6,8 @@ async function validateSignin(req, res, next) {
     try {
         const { rows: user } = await getUserByEmail(email);
         const isUserRegistered = user.length === 1;
-        const isPasswordValid = await bcrypt.compare(password, user[0].password);
-        if(isUserRegistered && isPasswordValid) {
+        const isPasswordValid = isUserRegistered ? await bcrypt.compare(password, user[0].password) : false;
+        if(isPasswordValid) {
             res.locals.user = user[0];
             return next();
         }

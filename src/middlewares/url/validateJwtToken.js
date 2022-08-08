@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 
 function validateJwtToken(req, res, next) {
-    const token = req.headers;
-    token?.replace("Bearer ", "");
+    const { authorization }= req.headers;
+    const token = authorization?.replace("Bearer ", "");
     const user = jwt.decode(token);
     res.locals.user = user;
     try {

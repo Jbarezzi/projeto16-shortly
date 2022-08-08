@@ -3,8 +3,9 @@ import { deleteUrl, getRanking, getShortUrl, getUrlById, registerUrl } from "./.
 
 async function createShortUrl(req, res) {
     const { id } = res.locals.user;
+    const { url } = req.body;
     const newUrl = {
-        url: req.body,
+        url,
         shortUrl: nanoid(),
         userId: id,
     }
@@ -17,7 +18,7 @@ async function createShortUrl(req, res) {
 }
 
 async function getUrl(req, res) {
-    const id = req.params;
+    const id = req.params.id;
     try {
         const { rows: urlDb } = await getUrlById(id);
         const urlToReturn = {
@@ -43,7 +44,7 @@ async function redirectUser(req, res) {
 }
 
 async function handleUrlDelete(req, res) {
-    const id = req.params;
+    const id = req.params.id;
     try {
         await deleteUrl(id);
         res.sendStatus(204);
@@ -53,7 +54,7 @@ async function handleUrlDelete(req, res) {
 }
 
 async function returnRanking(_req, res) {
-    const ranking = await getRanking();
+    const { rows: ranking } = await getRanking();
     res.status(200).send(ranking);
 }
 

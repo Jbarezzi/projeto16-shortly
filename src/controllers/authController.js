@@ -5,7 +5,7 @@ import { getUserData, registerUser } from "../repositories/authRepository.js";
 async function signup(req, res) {
     const user = req.body;
     const saltRounds = 10;
-    const hash = bcrypt.hash(user.password, saltRounds);
+    const hash = await bcrypt.hash(user.password, saltRounds);
     try {
         await registerUser(user, hash);
         res.sendStatus(201);
@@ -27,8 +27,8 @@ async function signin(_req, res) {
 
 async function returnUserData(_req, res) {
     const { id } = res.locals.user;
-    const userData = await getUserData(id);
-    res.status(200).send(userData);
+    const { rows: userData } = await getUserData(id);
+    res.status(200).send(userData[0]);
 }
 
 export { signup, signin, returnUserData } ;

@@ -1,7 +1,7 @@
 import { addVisitsToUrl } from "../../repositories/urlRepository.js";
 
 async function increaseVisitCount(req, _res, next) {
-    const shortUrl = req.body;
+    const shortUrl = req.params.shortUrl;
     await addVisitsToUrl(shortUrl);
     next();
 }

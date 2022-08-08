@@ -1,6 +1,6 @@
 import { getUserById } from "../../repositories/authRepository.js";
 
-async function checkIfUserExistsById(req, res, next) {
+async function checkIfUserExistsById(_req, res, next) {
     const { id } = res.locals.user;
     try {
         const { rowCount : user } = await getUserById(id);
